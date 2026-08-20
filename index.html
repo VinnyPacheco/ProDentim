@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Policy Modal - Top Anchored Background</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        /* Configuração do fundo de tela ANCORADO NO TOPO */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            
+            /* Fundo Desktop - Ancorado no topo */
+            background-image: url('bg.jpg');
+            background-size: cover;
+            background-position: top center; /* <--- Alterado de 'center' para 'top center' */
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        /* Fundo Mobile - Ancorado no topo */
+        @media (max-width: 768px) {
+            body {
+                background-image: url('bg-m.jpg');
+                background-position: top center; /* Garantindo que no mobile também fique no topo */
+            }
+        }
+
+        /* Overlay escuro opcional para dar mais contraste ao modal */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            z-index: -1;
+        }
+
+        /* --- Modal Compacto (Mantido exatamente como você aprovou) --- */
+        .cookie-modal {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 420px;
+            border-radius: 16px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+            padding: 25px 25px 20px 25px;
+            text-align: center;
+            color: #1a2a3a;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cookie-modal h2 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a2a3a;
+            letter-spacing: 0.5px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .cookie-text-box {
+            background-color: #f8f9fa;
+            border-radius: 12px;
+            padding: 18px 15px;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            font-size: 13px;
+            color: #4a5a6a;
+        }
+
+        .cookie-text-box p {
+            margin-bottom: 6px;
+        }
+
+        .cookie-text-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .cookie-text-box strong {
+            color: #1a2a3a;
+        }
+
+        .cookie-divider {
+            width: 35px;
+            height: 2px;
+            background-color: #d0d7de;
+            margin: 0 auto 18px auto;
+            border-radius: 2px;
+        }
+
+        .cookie-actions {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .btn-cookie {
+            flex: 1;
+            padding: 10px 15px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .btn-allow {
+            background-color: #006b4d;
+            color: #ffffff;
+            border: 2px solid #006b4d;
+        }
+        .btn-allow:hover {
+            background-color: #00523a;
+            border-color: #00523a;
+        }
+
+        .btn-close {
+            background-color: #ffffff;
+            color: #006b4d;
+            border: 2px solid #006b4d;
+        }
+        .btn-close:hover {
+            background-color: #f4f9f7;
+        }
+
+        .cookie-footer {
+            font-size: 11px;
+            color: #8a9aa8;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 480px) {
+            .cookie-modal { max-width: 90%; padding: 20px; }
+            .cookie-actions { flex-direction: column; gap: 8px; }
+            .btn-cookie { width: 100%; padding: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Modal de Cookies Compacto -->
+    <div class="cookie-modal">
+        <h2>Cookie Policy</h2>
+        
+        <div class="cookie-text-box">
+            <p>We use cookies to improve your experience and analyze traffic.</p>
+            <p>By clicking <strong>"Allow"</strong> or <strong>"Close"</strong>, you consent to our use of cookies.</p>
+            <p>You can change preferences anytime.</p>
+        </div>
+
+        <div class="cookie-divider"></div>
+
+        <div class="cookie-actions">
+            <a href="https://prodentim24.com/text.php#aff=vipacheco" class="btn-cookie btn-allow">Allow</a>
+            <a href="https://prodentim24.com/text.php#aff=vipacheco" class="btn-cookie btn-close">Close</a>
+        </div>
+
+        <div class="cookie-footer">
+            Your privacy is important to us.
+        </div>
+    </div>
+
+</body>
+</html>
