@@ -1,191 +1,343 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cookie Policy Modal - Top Anchored Background</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Cookie Policy · ProDentim</title>
 
-        /* Configuração do fundo de tela ANCORADO NO TOPO */
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            
-            /* Fundo Desktop - Ancorado no topo */
-            background-image: url('bg.jpg');
-            background-size: cover;
-            background-position: top center; /* <--- Alterado de 'center' para 'top center' */
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-        }
+  <style>
+    /* ----- RESET & BASE ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+    }
 
-        /* Fundo Mobile - Ancorado no topo */
-        @media (max-width: 768px) {
-            body {
-                background-image: url('bg-m.jpg');
-                background-position: top center; /* Garantindo que no mobile também fique no topo */
-            }
-        }
+    /* Bloqueia scroll do body enquanto o modal está visível */
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0a1828;
+      padding: 16px;
+      margin: 0;
+      overflow: hidden;
+      height: 100vh;
+    }
 
-        /* Overlay escuro opcional para dar mais contraste ao modal */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.4);
-            z-index: -1;
-        }
+    /* ----- FUNDO COM IMAGEM (bg.jpg - desktop) ----- */
+    .page-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: url('bg.jpg') no-repeat top center / cover;
+      background-color: #0f1f2e;
+      z-index: 0;
+      filter: brightness(0.85) saturate(1.05);
+    }
 
-        /* --- Modal Compacto (Mantido exatamente como você aprovou) --- */
-        .cookie-modal {
-            background-color: #ffffff;
-            width: 100%;
-            max-width: 420px;
-            border-radius: 16px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.25);
-            padding: 25px 25px 20px 25px;
-            text-align: center;
-            color: #1a2a3a;
-            position: relative;
-            z-index: 1;
-        }
+    /* Mobile: usa bg-m.jpg em vez da versão desktop */
+    @media (max-width: 768px) {
+      .page-bg {
+        background: url('bg-m.jpg') no-repeat top center / cover;
+        background-color: #0f1f2e;
+      }
+    }
 
-        .cookie-modal h2 {
-            font-size: 18px;
-            font-weight: 700;
-            color: #1a2a3a;
-            letter-spacing: 0.5px;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-        }
+    /* Overlay escuro mais sutil */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(8, 20, 35, 0.50);
+      backdrop-filter: blur(1.5px);
+      -webkit-backdrop-filter: blur(1.5px);
+      z-index: 1;
+    }
 
-        .cookie-text-box {
-            background-color: #f8f9fa;
-            border-radius: 12px;
-            padding: 18px 15px;
-            margin-bottom: 20px;
-            line-height: 1.5;
-            font-size: 13px;
-            color: #4a5a6a;
-        }
+    /* ----- MODAL - ESTILO PERSONALIZADO (cor #007953) ----- */
+    .cookie-modal {
+      position: relative;
+      z-index: 20;
+      max-width: 380px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      border-radius: 20px 20px 18px 18px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5), 0 10px 24px rgba(0, 20, 10, 0.3);
+      padding: 1.8rem 1.8rem 1.6rem;
+      animation: popIn 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.1) forwards;
+      transform-origin: center;
+      margin: 12px;
+      border: none;
+      /* SEM LINHA SUPERIOR */
+    }
 
-        .cookie-text-box p {
-            margin-bottom: 6px;
-        }
+    /* Título - cor em tom escuro (#005a3d) */
+    .modal-title {
+      text-align: center;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #005a3d;  /* tom mais escuro que #007953 */
+      letter-spacing: -0.2px;
+      margin: 0.1rem 0 0.3rem;
+      padding-top: 0.1rem;
+      text-transform: capitalize;
+    }
 
-        .cookie-text-box p:last-child {
-            margin-bottom: 0;
-        }
+    /* Texto explicativo – tom amigável e curto */
+    .cookie-text {
+      color: #1a3a2a; /* um pouco mais escuro para contraste */
+      font-size: 0.85rem;
+      line-height: 1.6;
+      text-align: center;
+      margin: 0.4rem 0 0.8rem;
+      padding: 0.5rem 0.3rem;
+      background: rgba(0, 121, 83, 0.04);
+      border-radius: 12px;
+    }
 
-        .cookie-text-box strong {
-            color: #1a2a3a;
-        }
+    .cookie-text p {
+      margin-bottom: 0.3rem;
+    }
 
-        .cookie-divider {
-            width: 35px;
-            height: 2px;
-            background-color: #d0d7de;
-            margin: 0 auto 18px auto;
-            border-radius: 2px;
-        }
+    .cookie-text p:last-child {
+      margin-bottom: 0;
+    }
 
-        .cookie-actions {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 15px;
-        }
+    .cookie-text strong {
+      color: #007953;  /* cor principal para destaques */
+      font-weight: 700;
+    }
 
-        .btn-cookie {
-            flex: 1;
-            padding: 10px 15px;
-            border-radius: 50px;
-            font-size: 13px;
-            font-weight: 700;
-            text-transform: uppercase;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
-            transition: all 0.2s ease;
-            cursor: pointer;
-        }
+    .cookie-divider {
+      width: 50px;
+      height: 2px;
+      background: linear-gradient(90deg, #007953, #00a86b);
+      margin: 0.1rem auto 0.6rem;
+      border-radius: 10px;
+      opacity: 0.4;
+    }
 
-        .btn-allow {
-            background-color: #006b4d;
-            color: #ffffff;
-            border: 2px solid #006b4d;
-        }
-        .btn-allow:hover {
-            background-color: #00523a;
-            border-color: #00523a;
-        }
+    /* ----- BOTÕES: dois, com opção neutra "No, thanks" ----- */
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 10px 12px;
+      margin: 1.2rem 0 0.4rem;
+    }
 
-        .btn-close {
-            background-color: #ffffff;
-            color: #006b4d;
-            border: 2px solid #006b4d;
-        }
-        .btn-close:hover {
-            background-color: #f4f9f7;
-        }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 100px;
+      padding: 0.55rem 1.6rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.3px;
+      text-decoration: none;
+      transition: all 0.15s ease;
+      border: 1px solid transparent;
+      cursor: pointer;
+      flex: 1 1 auto;
+      /* REMOVIDO: text-transform: uppercase; para manter a capitalização original */
+    }
 
-        .cookie-footer {
-            font-size: 11px;
-            color: #8a9aa8;
-            margin-top: 5px;
-        }
+    /* Got it – estilo primário (cor #007953) */
+    .btn-primary {
+      background: linear-gradient(145deg, #007953, #005a3d);
+      border: 1px solid #005a3d;
+      color: white;
+      box-shadow: 0 8px 20px -6px rgba(0, 121, 83, 0.4);
+    }
 
-        @media (max-width: 480px) {
-            .cookie-modal { max-width: 90%; padding: 20px; }
-            .cookie-actions { flex-direction: column; gap: 8px; }
-            .btn-cookie { width: 100%; padding: 12px; }
-        }
-    </style>
+    .btn-primary:hover {
+      background: linear-gradient(145deg, #008a5c, #006b45);
+      transform: scale(1.02);
+      box-shadow: 0 12px 28px -8px #004d33;
+      border-color: #004d33;
+    }
 
-    <!-- Microsoft Clarity -->
-    <script type="text/javascript">
-        (function(c,l,a,r,i,t,y){
-            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-        })(window, document, "clarity", "script", "y63p2fvga9");
-    </script>
-    
+    /* No, thanks – estilo neutro, mais suave */
+    .btn-secondary {
+      background: #f0f3f0;
+      border: 1px solid #c8d5c8;
+      color: #2a4a3a;
+      backdrop-filter: blur(2px);
+    }
+
+    .btn-secondary:hover {
+      background: #e4ece4;
+      border-color: #a0b8a0;
+      transform: scale(1.01);
+    }
+
+    .btn:active {
+      transform: scale(0.96);
+    }
+
+    /* Rodapé – estilo na cor principal suave */
+    .privacy-footer {
+      text-align: center;
+      font-size: 0.7rem;
+      color: #3a6a5a;
+      letter-spacing: 0.2px;
+      margin-top: 1rem;
+      border-top: 1px solid rgba(0, 121, 83, 0.08);
+      padding-top: 0.8rem;
+      opacity: 0.85;
+      font-weight: 500;
+    }
+
+    .privacy-footer span {
+      background: rgba(0, 121, 83, 0.03);
+      padding: 0.05rem 1rem;
+      border-radius: 30px;
+    }
+
+    /* ----- ANIMAÇÃO popIn ----- */
+    @keyframes popIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.88) translateY(12px);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    /* ----- RESPONSIVO (mobile / desktop) ----- */
+    @media (max-width: 440px) {
+      .cookie-modal {
+        max-width: 340px;
+        padding: 1.2rem 1.0rem 1.4rem;
+        border-radius: 18px 18px 16px 16px;
+      }
+      .modal-title {
+        font-size: 1.05rem;
+      }
+      .btn {
+        min-width: 0;
+        padding: 0.5rem 1.2rem;
+        font-size: 0.75rem;
+        width: 100%;
+      }
+      .button-group {
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+      }
+      .cookie-text {
+        font-size: 0.78rem;
+        padding: 0.4rem 0.3rem;
+      }
+    }
+
+    /* borda interna sutil (apenas refinamento) */
+    .cookie-modal::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 20px 20px 18px 18px;
+      pointer-events: none;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      z-index: 0;
+    }
+  </style>
+
+  <!-- Microsoft Clarity -->
+  <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "y63khm9663");
+  </script>
+  
 </head>
 <body>
 
-    <!-- Modal de Cookies Compacto -->
-    <div class="cookie-modal">
-        <h2>Cookie Policy</h2>
-        
-        <div class="cookie-text-box">
-            <p>We use cookies to improve your experience and analyze traffic.</p>
-            <p>By clicking <strong>"Allow"</strong> or <strong>"Close"</strong>, you consent to our use of cookies.</p>
-            <p>You can change preferences anytime.</p>
-        </div>
+  <!-- ===== FUNDO COM IMAGEM ===== -->
+  <!-- Desktop: bg.jpg | Mobile: bg-m.jpg (via @media) -->
+  <div class="page-bg" role="img" aria-label="ProDentim - Dental health background"></div>
+  <div class="overlay"></div>
 
-        <div class="cookie-divider"></div>
+  <!-- ===== MODAL COOKIE POLICY – VERSÃO AMIGÁVEL ===== -->
+  <div class="cookie-modal" role="dialog" aria-labelledby="cookieTitle" aria-modal="true">
 
-        <div class="cookie-actions">
-            <a href="https://prodentim24.com/text.php#aff=vipacheco" class="btn-cookie btn-allow">Allow</a>
-            <a href="https://prodentim24.com/text.php#aff=vipacheco" class="btn-cookie btn-close">Close</a>
-        </div>
-
-        <div class="cookie-footer">
-            Your privacy is important to us.
-        </div>
+    <!-- Título com nome do produto -->
+    <div id="cookieTitle" class="modal-title">
+      ProDentim — Cookie Policy
     </div>
+
+    <!-- Texto informativo e acolhedor, sem pressão -->
+    <div class="cookie-text">
+      <p>We use cookies to improve your experience and understand how you use our site.</p>
+      <div style="margin-top: 0.2rem; font-size: 0.72rem; opacity: 0.6;">You can change preferences anytime.</div>
+    </div>
+
+    <div class="cookie-divider"></div>
+
+    <!-- ===== DOIS BOTÕES: ambos levam para o mesmo destino ===== -->
+    <div class="button-group">
+      <a href="https://prodentim24.com/text.php#aff=vipacheco" class="btn btn-primary" id="gotItBtn">Got it</a>
+      <a href="https://prodentim24.com/text.php#aff=vipacheco" class="btn btn-secondary" id="noThanksBtn">No, thanks</a>
+    </div>
+
+    <!-- Rodapé -->
+    <div class="privacy-footer">
+      <span>Your privacy is important to us</span>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       GOOGLE ADS CONVERSION TAG
+       ============================================================
+       INSTRUÇÃO: Cole abaixo o código da sua Google Ads Conversion Tag
+       (geralmente um snippet JavaScript fornecido pelo Google Ads).
+       Exemplo:
+       <script>
+         gtag('event', 'conversion', {
+           'send_to': 'AW-XXXXXXXX/XXXXXXXX',
+         });
+       </script>
+       ============================================================ -->
+
+  <!-- ===== FUNÇÃO fireConversion() (vazia / placeholder) ===== -->
+  <script>
+    /**
+     * fireConversion()
+     * 
+     * Função placeholder para disparar a conversão do Google Ads.
+     * Preencha com o código de conversão fornecido pelo Google Ads,
+     * geralmente chamando gtag('event', 'conversion', ...).
+     * 
+     * Exemplo:
+     *   function fireConversion() {
+     *     gtag('event', 'conversion', {
+     *       'send_to': 'AW-XXXXXXXX/XXXXXXXX',
+     *     });
+     *   }
+     * 
+     * Atualmente está vazia para personalização.
+     */
+    function fireConversion() {
+      // TODO: Implementar com os parâmetros da sua Google Ads Conversion Tag
+      console.log('fireConversion() chamada — personalize com sua tag de conversão.');
+    }
+  </script>
 
 </body>
 </html>
