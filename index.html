@@ -5,6 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
   <title>Cookie Policy · ProDentim</title>
 
+  <!-- ============================================================
+    🔵 GOOGLE ADS — TAG GLOBAL (gtag.js)
+    Necessário para rastreamento. Não remover.
+  ============================================================ -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18423452005"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'AW-18423452005');
+  </script>
+  <!-- ============================================================
+    FIM — TAG GLOBAL
+  ============================================================ -->
+
   <style>
     /* ----- RESET & BASE ----- */
     * {
@@ -61,7 +76,7 @@
       z-index: 1;
     }
 
-    /* ----- MODAL - ESTILO PERSONALIZADO (cor #007953) ----- */
+    /* ----- MODAL - ESTILO PERSONALIZADO (cor #76A686) ----- */
     .cookie-modal {
       position: relative;
       z-index: 20;
@@ -71,13 +86,12 @@
       backdrop-filter: blur(4px);
       -webkit-backdrop-filter: blur(4px);
       border-radius: 20px 20px 18px 18px;
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5), 0 10px 24px rgba(0, 20, 10, 0.3);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5), 0 10px 24px rgba(0, 50, 30, 0.3);
       padding: 1.8rem 1.8rem 1.6rem;
       animation: popIn 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.1) forwards;
       transform-origin: center;
       margin: 12px;
       border: none;
-      /* SEM LINHA SUPERIOR */
     }
 
     /* Título - cor em tom escuro (#005a3d) */
@@ -85,7 +99,7 @@
       text-align: center;
       font-size: 1.25rem;
       font-weight: 700;
-      color: #005a3d;  /* tom mais escuro que #007953 */
+      color: #005a3d;
       letter-spacing: -0.2px;
       margin: 0.1rem 0 0.3rem;
       padding-top: 0.1rem;
@@ -94,7 +108,7 @@
 
     /* Texto explicativo – tom amigável e curto */
     .cookie-text {
-      color: #1a3a2a; /* um pouco mais escuro para contraste */
+      color: #1a3a2a;
       font-size: 0.85rem;
       line-height: 1.6;
       text-align: center;
@@ -113,14 +127,14 @@
     }
 
     .cookie-text strong {
-      color: #007953;  /* cor principal para destaques */
+      color: #76A686;
       font-weight: 700;
     }
 
     .cookie-divider {
       width: 50px;
       height: 2px;
-      background: linear-gradient(90deg, #007953, #00a86b);
+      background: linear-gradient(90deg, #76A686, #00a86b);
       margin: 0.1rem auto 0.6rem;
       border-radius: 10px;
       opacity: 0.4;
@@ -151,12 +165,11 @@
       border: 1px solid transparent;
       cursor: pointer;
       flex: 1 1 auto;
-      /* REMOVIDO: text-transform: uppercase; para manter a capitalização original */
     }
 
-    /* Got it – estilo primário (cor #007953) */
+    /* Got it – estilo primário (cor #76A686) */
     .btn-primary {
-      background: linear-gradient(145deg, #007953, #005a3d);
+      background: linear-gradient(145deg, #76A686, #005a3d);
       border: 1px solid #005a3d;
       color: white;
       box-shadow: 0 8px 20px -6px rgba(0, 121, 83, 0.4);
@@ -171,7 +184,7 @@
 
     /* No, thanks – estilo neutro, mais suave */
     .btn-secondary {
-      background: #f0f3f0;
+      background: #f0f5f0;
       border: 1px solid #c8d5c8;
       color: #2a4a3a;
       backdrop-filter: blur(2px);
@@ -218,30 +231,81 @@
       }
     }
 
-    /* ----- RESPONSIVO (mobile / desktop) ----- */
-    @media (max-width: 440px) {
+    /* ============================================================
+       RESPONSIVO – MOBILE: espaçamento proporcional ao desktop
+    ============================================================ */
+    @media (max-width: 480px) {
       .cookie-modal {
-        max-width: 340px;
-        padding: 1.2rem 1.0rem 1.4rem;
-        border-radius: 18px 18px 16px 16px;
+        max-width: 280px;
+        width: 100%;
+        padding: 0.8rem 0.8rem 0.6rem;
+        border-radius: 16px 16px 14px 14px;
+        margin: 8px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 0.25rem;
       }
+
       .modal-title {
-        font-size: 1.05rem;
+        font-size: 1.0rem;
+        margin: 0.1rem 0 0.2rem;
+        padding-top: 0;
+        flex-shrink: 0;
+        line-height: 1.3;
       }
+
+      .cookie-text {
+        font-size: 0.8rem;
+        padding: 0.3rem 0.3rem;
+        margin: 0.2rem 0 0.3rem;
+        flex-shrink: 0;
+        border-radius: 10px;
+      }
+
+      .cookie-text p {
+        margin-bottom: 0.2rem;
+      }
+
+      .cookie-divider {
+        width: 30px;
+        height: 2px;
+        margin: 0.1rem auto 0.3rem;
+        flex-shrink: 0;
+      }
+
+      .button-group {
+        gap: 6px;
+        margin: 0.5rem 0 0.2rem;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        width: 100%;
+        flex-shrink: 0;
+      }
+
       .btn {
         min-width: 0;
-        padding: 0.5rem 1.2rem;
+        padding: 0.35rem 0.5rem;
         font-size: 0.75rem;
-        width: 100%;
+        flex: 1;
+        white-space: nowrap;
+        border-radius: 40px;
       }
-      .button-group {
-        flex-direction: column;
-        gap: 8px;
-        width: 100%;
+
+      .privacy-footer {
+        font-size: 0.6rem;
+        margin-top: 0.4rem;
+        padding-top: 0.4rem;
+        flex-shrink: 0;
+        opacity: 0.8;
       }
-      .cookie-text {
-        font-size: 0.78rem;
-        padding: 0.4rem 0.3rem;
+
+      .privacy-footer span {
+        padding: 0.05rem 0.6rem;
+      }
+
+      .cookie-modal::after {
+        border-radius: 16px 16px 14px 14px;
       }
     }
 
@@ -257,15 +321,21 @@
     }
   </style>
 
-  <!-- Microsoft Clarity -->
+  <!-- ============================================================
+    🟢 MICROSOFT CLARITY — Gravações e mapas de calor
+    Não remover.
+  ============================================================ -->
   <script type="text/javascript">
-      (function(c,l,a,r,i,t,y){
-          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-      })(window, document, "clarity", "script", "y63p2fvga9");
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "y63p2fvga9");
   </script>
-  
+  <!-- ============================================================
+    FIM — MICROSOFT CLARITY
+  ============================================================ -->
+
 </head>
 <body>
 
@@ -285,58 +355,61 @@
     <!-- Texto informativo e acolhedor, sem pressão -->
     <div class="cookie-text">
       <p>We use cookies to improve your experience and understand how you use our site.</p>
-      <div style="margin-top: 0.2rem; font-size: 0.72rem; opacity: 0.6;">You can change preferences anytime.</div>
+      <div style="margin-top: 0.15rem; font-size: 0.75rem; opacity: 0.6; line-height: 1.4;">You can change preferences anytime.</div>
     </div>
 
     <div class="cookie-divider"></div>
 
+    <!-- ============================================================
+      🔴 BOTÕES — onclick chama gtag_report_conversion()
+      que dispara o pixel ANTES de redirecionar o usuário
+    ============================================================ -->
     <div class="button-group">
-      <a href="https://prodentim24.com/text.php?cookies=yes#aff=vp0290" class="btn btn-primary" id="gotItBtn">Got it</a>
-      <a href="https://prodentim24.com/text.php?cookies=no#aff=vp0290" class="btn btn-secondary" id="noThanksBtn">No, thanks</a>
+      <a href="https://prodentim24.com/text.php?cookies=yes#aff=vp0290"
+         class="btn btn-primary"
+         id="gotItBtn"
+         onclick="return gtag_report_conversion(this.href)">
+        Got it
+      </a>
+      <a href="https://prodentim24.com/text.php?cookies=declined#aff=vp0290"
+         class="btn btn-secondary"
+         id="noThanksBtn"
+         onclick="return gtag_report_conversion(this.href)">
+        No, thanks
+      </a>
     </div>
+    <!-- ============================================================
+      FIM — BOTÕES
+    ============================================================ -->
 
-    <!-- Rodapé -->
     <div class="privacy-footer">
       <span>Your privacy is important to us</span>
     </div>
   </div>
 
   <!-- ============================================================
-       GOOGLE ADS CONVERSION TAG
-       ============================================================
-       INSTRUÇÃO: Cole abaixo o código da sua Google Ads Conversion Tag
-       (geralmente um snippet JavaScript fornecido pelo Google Ads).
-       Exemplo:
-       <script>
-         gtag('event', 'conversion', {
-           'send_to': 'AW-XXXXXXXX/XXXXXXXX',
-         });
-       </script>
-       ============================================================ -->
-
-  <!-- ===== FUNÇÃO fireConversion() (vazia / placeholder) ===== -->
+    🔴 GOOGLE ADS — EVENTO DE CONVERSÃO (Nutra - CTA Click)
+    Dispara quando o usuário clica em qualquer botão do modal.
+    NÃO renomear a função gtag_report_conversion.
+  ============================================================ -->
   <script>
-    /**
-     * fireConversion()
-     * 
-     * Função placeholder para disparar a conversão do Google Ads.
-     * Preencha com o código de conversão fornecido pelo Google Ads,
-     * geralmente chamando gtag('event', 'conversion', ...).
-     * 
-     * Exemplo:
-     *   function fireConversion() {
-     *     gtag('event', 'conversion', {
-     *       'send_to': 'AW-XXXXXXXX/XXXXXXXX',
-     *     });
-     *   }
-     * 
-     * Atualmente está vazia para personalização.
-     */
-    function fireConversion() {
-      // TODO: Implementar com os parâmetros da sua Google Ads Conversion Tag
-      console.log('fireConversion() chamada — personalize com sua tag de conversão.');
+    function gtag_report_conversion(url) {
+      var callback = function () {
+        if (typeof(url) != 'undefined') {
+          window.location = url;
+        }
+      };
+      gtag('event', 'conversion', {
+        'send_to': 'AW-18423452005/QPuvCOfilewcEOWi_tBE',
+        'transaction_id': '',
+        'event_callback': callback
+      });
+      return false;
     }
   </script>
+  <!-- ============================================================
+    FIM — EVENTO DE CONVERSÃO
+  ============================================================ -->
 
 </body>
 </html>
