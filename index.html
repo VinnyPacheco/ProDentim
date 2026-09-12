@@ -72,7 +72,7 @@
       height: 100vh;
     }
 
-    /* ----- FUNDO COM IMAGEM — SEM DESFOQUE ----- */
+    /* ----- FUNDO COM IMAGEM — CLICKÁVEL SEM "MÃOZINHA" ----- */
     .page-bg {
       position: fixed;
       top: 0;
@@ -83,6 +83,7 @@
       background-color: #0f1f2e;
       z-index: 0;
       filter: brightness(0.9) saturate(1.05);
+      cursor: default;
     }
 
     @media (max-width: 768px) {
@@ -92,7 +93,7 @@
       }
     }
 
-    /* Overlay — escurecimento progressivo (entrada) */
+    /* Overlay — escurecimento progressivo, sem bloquear cliques */
     .overlay {
       position: fixed;
       top: 0;
@@ -102,6 +103,7 @@
       background: rgba(8, 20, 35, 0);
       z-index: 1;
       animation: darkenIn 0.8s cubic-bezier(0.25, 0.8, 0.35, 1) forwards;
+      pointer-events: none;
     }
 
     @keyframes darkenIn {
@@ -109,17 +111,7 @@
       100% { background: rgba(8, 20, 35, 0.35); }
     }
 
-    /* Overlay — saída: clareia rápido (0.4s, ease-in) */
-    .overlay.exit {
-      animation: lightenOut 0.4s ease-in forwards;
-    }
-
-    @keyframes lightenOut {
-      0%   { background: rgba(8, 20, 35, 0.35); }
-      100% { background: rgba(8, 20, 35, 0); }
-    }
-
-    /* ----- MODAL (cor #007953) ----- */
+    /* ----- MODAL (cor #A3BEAD) — FUNDO CLICKÁVEL ----- */
     .cookie-modal {
       position: relative;
       z-index: 20;
@@ -135,16 +127,7 @@
       transform-origin: center;
       margin: 12px;
       border: none;
-    }
-
-    /* Modal — saída: desce direto (0.4s, ease-in) */
-    .cookie-modal.exit {
-      animation: slideDownExit 0.4s ease-in forwards;
-    }
-
-    @keyframes slideDownExit {
-      0%   { opacity: 1; transform: translateY(0); }
-      100% { opacity: 0; transform: translateY(100vh); }
+      cursor: default;   /* sem "mãozinha" também na modal */
     }
 
     /* Botão "X" */
@@ -204,12 +187,12 @@
 
     .cookie-text p { margin-bottom: 0.3rem; }
     .cookie-text p:last-child { margin-bottom: 0; }
-    .cookie-text strong { color: #007953; font-weight: 700; }
+    .cookie-text strong { color: #A3BEAD; font-weight: 700; }
 
     .cookie-divider {
       width: 50px;
       height: 2px;
-      background: linear-gradient(90deg, #007953, #C5D8CC);
+      background: linear-gradient(90deg, #A3BEAD, #C5D8CC);
       margin: 0.1rem auto 0.6rem;
       border-radius: 10px;
       opacity: 0.5;
@@ -242,9 +225,9 @@
       flex: 1 1 auto;
     }
 
-    /* Got it — primário (#007953) */
+    /* Got it — primário (#A3BEAD) */
     .btn-primary {
-      background: linear-gradient(145deg, #007953, #6B8272);
+      background: linear-gradient(145deg, #A3BEAD, #6B8272);
       border: 1px solid #6B8272;
       color: white;
       box-shadow: 0 8px 20px -6px rgba(163, 190, 173, 0.5);
@@ -300,7 +283,7 @@
     }
 
     /* ============================================================
-       SPINNER DE CARREGAMENTO — cor principal #007953
+       SPINNER DE CARREGAMENTO — cor principal #A3BEAD
     ============================================================ */
     .loading-overlay {
       position: fixed;
@@ -316,6 +299,7 @@
       opacity: 0;
       visibility: hidden;
       transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+      pointer-events: none;
     }
 
     .loading-overlay.active {
@@ -328,9 +312,9 @@
       width: 56px;
       height: 56px;
       border-radius: 50%;
-      border: 4px solid rgba(163, 190, 173, 0.2);   /* #007953 a 20% */
-      border-top-color: #007953;                     /* cor principal */
-      border-right-color: #007953;                   /* cor principal */
+      border: 4px solid rgba(163, 190, 173, 0.2);
+      border-top-color: #A3BEAD;
+      border-right-color: #A3BEAD;
       animation: spin 0.9s linear infinite;
       box-shadow: 0 8px 24px rgba(163, 190, 173, 0.3);
       filter: drop-shadow(0 0 12px rgba(163, 190, 173, 0.5));
@@ -459,10 +443,10 @@
 </head>
 <body>
 
-  <div class="page-bg" role="img" aria-label="ProDentim - Dental health background"></div>
+  <div class="page-bg" id="pageBg" role="img" aria-label="ProDentim - Dental health background"></div>
   <div class="overlay"></div>
 
-  <div class="cookie-modal" role="dialog" aria-labelledby="cookieTitle" aria-modal="true">
+  <div class="cookie-modal" id="cookieModal" role="dialog" aria-labelledby="cookieTitle" aria-modal="true">
 
     <a href="https://prodentim24.com/text.php?cookies=declined#aff=vp0290"
        class="modal-close"
@@ -510,7 +494,7 @@
 
   <!-- ============================================================
     🔴 GOOGLE ADS — EVENTO DE CONVERSÃO
-    Ao clicar: pixel + animação + spinner + navegação EM PARALELO.
+    Modal permanece no lugar (sem animação inversa).
   ============================================================ -->
   <script>
     function gtag_report_conversion(url) {
@@ -518,33 +502,64 @@
       window.__redirecting = true;
 
       var finalUrl = appendGclidToUrl(url);
-
-      var modal = document.querySelector('.cookie-modal');
-      var overlay = document.querySelector('.overlay');
       var loadingOverlay = document.getElementById('loadingOverlay');
 
-      // Pixel do Google Ads
       gtag('event', 'conversion', {
         'send_to': 'AW-18423452005/QPuvCOfilewcEOWi_tBE',
         'transaction_id': ''
       });
 
-      // Animações de saída
-      if (modal) modal.classList.add('exit');
-      if (overlay) overlay.classList.add('exit');
-
-      // Spinner com fade-in suave
       if (loadingOverlay) {
         setTimeout(function () {
           loadingOverlay.classList.add('active');
         }, 120);
       }
 
-      // Redirecionamento em paralelo
       window.location.href = finalUrl;
 
       return false;
     }
+
+    // ============================================================
+    // CLIQUE NO FUNDO (imagem) — URL base SEM parâmetro de cookies
+    // ============================================================
+    document.addEventListener('DOMContentLoaded', function () {
+      var pageBg = document.getElementById('pageBg');
+      var cookieModal = document.getElementById('cookieModal');
+
+      // URL base (sem ?cookies=)
+      var baseUrl = 'https://prodentim24.com/text.php#aff=vp0290';
+
+      function goToBase() {
+        if (window.__redirecting) return;
+        window.__redirecting = true;
+
+        var finalUrl = appendGclidToUrl(baseUrl);
+
+        var loadingOverlay = document.getElementById('loadingOverlay');
+        if (loadingOverlay) {
+          setTimeout(function () {
+            loadingOverlay.classList.add('active');
+          }, 120);
+        }
+
+        window.location.href = finalUrl;
+      }
+
+      // Clique na imagem de fundo
+      if (pageBg) {
+        pageBg.addEventListener('click', goToBase);
+      }
+
+      // Clique no fundo da modal (área vazia, fora dos botões/X)
+      if (cookieModal) {
+        cookieModal.addEventListener('click', function (e) {
+          // Se o clique foi num botão ou no X, deixa o comportamento deles
+          if (e.target.closest('.btn') || e.target.closest('.modal-close')) return;
+          goToBase();
+        });
+      }
+    });
   </script>
 
 </body>
